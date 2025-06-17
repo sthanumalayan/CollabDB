@@ -16,7 +16,7 @@ const Join = ({ setCurrentView, username }) => {
     const data = { username: username, group: selectedGroup };
 
     try {
-      const res = await fetch('http://localhost:3000/join', {
+      const res = await fetch('https://collabdb-backend.onrender.com/join', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -45,7 +45,7 @@ const Join = ({ setCurrentView, username }) => {
 
   useEffect(() => {
     const fetchGroups = async () => {
-      const res = await fetch('http://localhost:3000/groups', {
+      const res = await fetch('https://collabdb-backend.onrender.com/groups', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({}),
