@@ -19,7 +19,7 @@ const Create = ({ setCurrentView, username }) => {
     const data = { group, imgurl, description, username };
 
     try {
-      const res = await fetch('http://localhost:3000/create', {
+      const res = await fetch('https://collabdb-backend.onrender.com/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
