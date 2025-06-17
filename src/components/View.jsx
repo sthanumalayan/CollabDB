@@ -29,7 +29,7 @@ const View = ({ setCurrentView, username }) => {
 
     setSubmitting(true);
     try {
-      await fetch('http://localhost:3000/expense', {
+      await fetch('https://collabdb-backend.onrender.com/expense', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -52,7 +52,7 @@ const View = ({ setCurrentView, username }) => {
 
   const handleDue = async (member) => {
     try {
-      const res = await fetch('http://localhost:3000/dues', {
+      const res = await fetch('https://collabdb-backend.onrender.com/dues', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -75,7 +75,7 @@ const View = ({ setCurrentView, username }) => {
 
   useEffect(() => {
     setLoadingGroups(true);
-    fetch('http://localhost:3000/view', {
+    fetch('https://collabdb-backend.onrender.com/view', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username }),
