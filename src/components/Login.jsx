@@ -10,7 +10,7 @@ const Login = ({ setCurrentView, setUsername }) => {
 
   const handleSubmit = async () => {
     const data = { user, password };
-    const res = await fetch('http://localhost:3000/login', {
+    const res = await fetch('https://collabdb-backend.onrender.com/login', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
