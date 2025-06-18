@@ -100,7 +100,7 @@ const View = ({ setCurrentView, username }) => {
   }, [selectedGroup]);
 
   return (
-    <div className="min-h-screen w-full overflow-hidden bg-gradient-to-br from-indigo-100 via-pink-100 to-yellow-100 p-6">
+    <div className="min-h-screen w-full bg-gradient-to-br from-indigo-100 via-pink-100 to-yellow-100 p-6">
       {(showModal || dueModalOpen) && (
         <div className="fixed inset-0 bg-black bg-opacity-40 z-40" />
       )}
@@ -112,7 +112,7 @@ const View = ({ setCurrentView, username }) => {
         ⬅ Back
       </button>
 
-      <div className="flex gap-6 flex-col md:flex-row h-[80vh]">
+      <div className="flex gap-6 flex-col md:flex-row max-h-[80vh] overflow-y-auto">
         {/* Group Cards */}
         <div className="w-full md:w-[60%] grid grid-cols-1 sm:grid-cols-2 gap-6 overflow-y-auto pr-2">
           {loadingGroups ? (
@@ -143,7 +143,7 @@ const View = ({ setCurrentView, username }) => {
         </div>
 
         {/* Group Detail Panel */}
-        <div className="w-full md:w-[40%] bg-white border rounded-xl p-6 shadow max-h-full overflow-hidden">
+        <div className="w-full md:w-[40%] bg-white border rounded-xl p-6 shadow overflow-y-auto max-h-[75vh]">
           {selectedGroup ? (
             <>
               <h2 className="text-2xl font-bold text-indigo-700 mb-2">{selectedGroup.name}</h2>
