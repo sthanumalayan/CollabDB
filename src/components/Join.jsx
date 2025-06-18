@@ -6,14 +6,12 @@ const Join = ({ setCurrentView, username }) => {
   const [statusMessage, setStatusMessage] = useState('');
   const [statusType, setStatusType] = useState('');
 
-  const handleBack = () => {
-    setCurrentView("home");
-  };
+  const handleBack = () => setCurrentView("home");
 
   const handleJoin = async () => {
     if (!selectedGroup) return;
 
-    const data = { username: username, group: selectedGroup };
+    const data = { username, group: selectedGroup };
 
     try {
       const res = await fetch('https://collabdb-backend.onrender.com/join', {
@@ -56,7 +54,6 @@ const Join = ({ setCurrentView, username }) => {
     fetchGroups();
   }, [selectedGroup]);
 
-  // Auto-clear message
   useEffect(() => {
     if (statusMessage) {
       const timer = setTimeout(() => {
@@ -68,45 +65,43 @@ const Join = ({ setCurrentView, username }) => {
   }, [statusMessage]);
 
   return (
-    <div className="h-screen w-full bg-gradient-to-br from-yellow-100 via-orange-100 to-rose-100 flex flex-col p-6">
+    <div className="min-h-screen w-full bg-gradient-to-br from-yellow-100 via-orange-100 to-rose-100 flex flex-col p-4 sm:p-6">
       {/* Back Button */}
-      <div className="mb-6">
+      <div className="mb-4 sm:mb-6">
         <button
           onClick={handleBack}
-          className="text-lg md:text-xl px-6 py-2 bg-amber-300 text-amber-900 font-semibold hover:bg-amber-400 cursor-pointer rounded-lg shadow-md transition-all"
+          className="text-base sm:text-lg px-4 sm:px-6 py-2 bg-amber-300 text-amber-900 font-semibold hover:bg-amber-400 rounded-lg shadow-md transition-all"
         >
           ⬅ Back
         </button>
       </div>
 
       {/* Content Layout */}
-      <div className="flex flex-1 gap-6 overflow-hidden">
+      <div className="flex flex-col md:flex-row gap-6 flex-1 overflow-hidden">
         {/* Groups List */}
-        <div className="w-[65%] overflow-y-auto overflow-x-hidden grid grid-cols-1 md:grid-cols-2 gap-6 pr-2">
+        <div className="w-full md:w-[65%] overflow-y-auto grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 pr-1 sm:pr-2">
           {groups.map((group) => (
             <div
               key={group._id}
-              onClick={() => {
-                setSelectedGroup(group);
-              }}
-              className="cursor-pointer border border-yellow-300 rounded-2xl p-4 bg-white shadow-md hover:shadow-xl transform hover:scale-105 transition duration-300 flex flex-col"
+              onClick={() => setSelectedGroup(group)}
+              className="cursor-pointer border border-yellow-300 rounded-2xl p-4 bg-white shadow-md hover:shadow-xl transform hover:scale-[1.02] transition duration-300 flex flex-col"
             >
               <img
                 src={group.url}
                 alt="Group"
-                className="h-48 w-full object-cover rounded-xl mb-3"
+                className="h-40 sm:h-48 w-full object-cover rounded-xl mb-3"
               />
-              <h2 className="text-xl font-semibold text-orange-700">{group.name}</h2>
-              <p className="text-gray-700 mt-2">{group.description}</p>
+              <h2 className="text-lg sm:text-xl font-semibold text-orange-700">{group.name}</h2>
+              <p className="text-gray-700 mt-2 text-sm sm:text-base">{group.description}</p>
             </div>
           ))}
         </div>
 
         {/* Group Detail Panel */}
-        <div className="w-[35%] border border-yellow-300 rounded-2xl p-6 bg-white shadow-inner relative overflow-y-auto">
+        <div className="w-full md:w-[35%] border border-yellow-300 rounded-2xl p-4 sm:p-6 bg-white shadow-inner relative overflow-y-auto max-h-[75vh]">
           {statusMessage && (
             <div
-              className={`mb-4 px-4 py-3 rounded-lg text-center font-semibold ${
+              className={`mb-4 px-4 py-3 rounded-lg text-center font-semibold text-sm sm:text-base ${
                 statusType === 'success'
                   ? 'bg-green-100 text-green-800'
                   : statusType === 'info'
@@ -120,11 +115,17 @@ const Join = ({ setCurrentView, username }) => {
 
           {selectedGroup ? (
             <>
-              <h2 className="text-2xl font-bold text-orange-800 mb-3 pr-16">{selectedGroup.name}</h2>
-              <p className="text-gray-700 mb-4">{selectedGroup.description}</p>
+              <h2 className="text-xl sm:text-2xl font-bold text-orange-800 mb-3 pr-16">
+                {selectedGroup.name}
+              </h2>
+              <p className="text-gray-700 mb-4 text-sm sm:text-base">
+                {selectedGroup.description}
+              </p>
 
-              <h3 className="text-lg font-semibold text-orange-700 mb-2">Members:</h3>
-              <ul className="list-disc list-inside mb-4 text-gray-800 max-h-[200px] overflow-y-auto pr-2">
+              <h3 className="text-base sm:text-lg font-semibold text-orange-700 mb-2">
+                Members:
+              </h3>
+              <ul className="list-disc list-inside mb-4 text-gray-800 text-sm sm:text-base max-h-[200px] overflow-y-auto pr-2">
                 {selectedGroup.members?.map((member, index) => (
                   <li key={index}>{member}</li>
                 ))}
@@ -132,13 +133,13 @@ const Join = ({ setCurrentView, username }) => {
 
               <button
                 onClick={handleJoin}
-                className="absolute top-6 right-6 px-4 py-2 bg-amber-400 hover:bg-amber-500 cursor-pointer text-white rounded-lg text-lg transition-all"
+                className="absolute top-4 right-4 px-4 py-2 bg-amber-400 hover:bg-amber-500 text-white rounded-lg text-sm sm:text-base transition-all"
               >
                 Join?
               </button>
             </>
           ) : (
-            <p className="text-gray-600">Click on a group to view details</p>
+            <p className="text-gray-600 text-sm sm:text-base">Click on a group to view details</p>
           )}
         </div>
       </div>
